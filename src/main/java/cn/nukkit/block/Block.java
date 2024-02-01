@@ -961,6 +961,12 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         } else if (id > MAX_BLOCK_ID) {
             return ID_TO_CUSTOM_BLOCK.get(id).toCustomBlock();
         }
+
+        //TODO: This is a hack to prevent a crash when the block is not registered
+        if((id << DATA_BITS) > fullList.length) {
+            return fullList[0].clone();
+        }
+
         return fullList[id << DATA_BITS].clone();
     }
 
